@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Graded Card Label Generator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <h1>Graded Card Label Generator</h1>
+
+  <form id="form" autocomplete="off">
+    <fieldset>
+      <legend>Style</legend>
+      <div class="segmented" role="radiogroup" aria-label="Label style">
+        <label><input type="radio" name="style" value="PSA" checked><span>PSA</span></label>
+        <label><input type="radio" name="style" value="CGC"><span>CGC</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Content</legend>
+      <div class="grid">
+        <label>Title 1<input type="text" id="title1" required placeholder="1952 TOPPS"></label>
+        <label>Title 2<input type="text" id="title2" placeholder="MICKEY MANTLE"></label>
+        <label>Title 3<input type="text" id="title3" placeholder="PSA/DNA CERT"></label>
+        <label data-style-only="CGC" hidden>Grading agency<input type="text" id="agency" placeholder="CERTIFIED GUARANTY COMPANY"></label>
+        <label data-style-only="PSA">Number<input type="text" id="number" placeholder="Random"></label>
+        <label>Grade<input type="text" id="grade" placeholder="GEM MT 10" ></label>
+        <label data-style-only="PSA">Autograph<input type="text" id="autograph" placeholder="AUTO 9"></label>
+        <label>Audit number<input type="text" id="audit" inputmode="numeric" placeholder="Random"></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Format</legend>
+      <div class="grid">
+        <label>Border color<input type="color" id="borderColor" value="#C50212"></label>
+        <label>Background color<input type="color" id="bgColor" value="#FFFFFF"></label>
+        <label>Logo<input type="file" id="logo" accept="image/*"></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Size</legend>
+      <div class="grid">
+        <label>Width (mm)<input type="number" id="width" min="10" max="300" step="0.1" placeholder="65"></label>
+        <label>Height (mm)<input type="number" id="height" min="8" max="200" step="0.1" placeholder="20"></label>
+      </div>
+    </fieldset>
+
+    <button type="submit">Generate</button>
+  </form>
+
+  <section id="preview" hidden>
+    <div id="canvasWrap"><canvas id="labelCanvas"></canvas></div>
+    <div class="actions">
+      <button type="button" class="secondary" id="pngBtn">PNG</button>
+      <button type="button" class="secondary" id="pdfBtn">PDF</button>
+    </div>
+  </section>
+
+  <dialog id="pdfDialog">
+    <form method="dialog" id="pdfForm">
+      <h2>PDF options</h2>
+      <div class="row">
+        <label>Paper size
+          <select id="paper">
+            <option value="3x5">3 × 5 in</option>
+            <option value="4x6" selected>4 × 6 in</option>
+            <option value="5x7">5 × 7 in</option>
+            <option value="letter">Letter (8.5 × 11 in)</option>
+          </select>
+        </label>
+      </div>
+      <div class="row">
+        <label class="check"><input type="checkbox" id="margins"> Margins (0.25 in)</label>
+      </div>
+      <menu>
+        <button type="button" class="secondary" id="pdfCancel">Cancel</button>
+        <button type="submit" id="pdfOk">Download PDF</button>
+      </menu>
+    </form>
+  </dialog>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="default-logo.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
